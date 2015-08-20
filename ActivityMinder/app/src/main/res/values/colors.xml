@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--<color name="primary">#AAC455</color>-->
+
+    <!--http://www.colorcombos.com/color-schemes/277/ColorCombo277.html-->
+    <color name="primary">#31B96E</color>
+    <color name="primary_pressed">#77C443</color>
+    <color name="doworkout">#21A26E</color>
+    <!--<color name="edit_button">#89EA94</color>-->
+    <color name="edit_button">#93E2D5</color>
+    <color name="grayish">#eeeeef</color>
+    <color name="hint">#21995E</color>
+
+    <color name="gray">#ccc</color>
+    <color name="white">#fff</color>
+
+    <!--http://www.colourlovers.com/palette/15/tech_light-->
+
+</resources>

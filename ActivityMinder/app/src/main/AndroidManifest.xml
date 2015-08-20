@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ase.activityminder" >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <meta-data android:name="android.app.default_searchable"
+            android:value=".activities.QueryDatabaseActivity"/>
+
+        <activity
+            android:name=".activities.LogInActivity"
+            android:label="Login">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.edit.NewWorkout"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.edit.NewExercise"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.DoWorkout"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            >
+        </activity>
+        <activity
+            android:name=".activities.edit.EditWorkout"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activities.FinishedWorkout"
+            android:label="Nice">
+        </activity>
+        <activity
+            android:name=".activities.edit.EditExercise"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".activities.CreateUserActivity"
+            android:label="@string/app_name" >
+        </activity>
+
+
+
+
+
+        <activity
+            android:name=".activities.QueryDatabaseActivity"
+            android:label="ExerciseSQL"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+
+        </activity>
+
+        <activity
+            android:name=".activities.ExerciseDetailsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity android:name=".activities.VideoActivity"
+            android:screenOrientation="landscape"
+            />
+
+        <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+    </application>
+
+</manifest>

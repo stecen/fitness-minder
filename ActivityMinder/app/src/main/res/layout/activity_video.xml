@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/start"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:onClick="startPlay"-->
+            <!--android:text="Play the video"/>-->
+    <!--</LinearLayout>-->
+
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/surface_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <!--<Button-->
+        <!--android:id="@+id/button1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:onClick="openVideo"-->
+        <!--android:text="Open the video."/>-->
+
+</FrameLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--&lt;!&ndash;<LinearLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:orientation="horizontal">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<Button&ndash;&gt;-->
+            <!--&lt;!&ndash;android:id="@+id/start"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:onClick="startPlay"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:text="Play the video"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
+
+    <!--<io.vov.vitamio.widget.VideoView-->
+        <!--android:id="@+id/video"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+
+    <!--&lt;!&ndash;<Button&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/button1"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:onClick="openVideo"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:text="Open the video."/>&ndash;&gt;-->
+
+<!--</LinearLayout>-->

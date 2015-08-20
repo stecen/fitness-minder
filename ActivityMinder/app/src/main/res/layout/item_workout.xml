@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent" android:layout_height="match_parent"-->
+    <!--android:id="@+id/relative">-->
+
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/workout_linear_row"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+
+        android:clickable="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/check_box"
+            android:layout_gravity="center_vertical"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/workout_text"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+
+            android:clickable="true"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
+
+        <Button
+            android:background="@drawable/rounded_button"
+            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:id="@+id/edit_button"
+            android:layout_gravity="center_vertical"
+
+            />
+
+    </LinearLayout>
+
+<!--</RelativeLayout>-->
+
+
+    <!--style="?android:attr/buttonStyleSmall"-->

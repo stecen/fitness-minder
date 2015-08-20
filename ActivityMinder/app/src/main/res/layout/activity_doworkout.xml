@@ -1,0 +1,105 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/doworkout"
+    tools:context=".MainActivity">
+
+    <ase.activityminder.CircleView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:alpha=".5"/>
+
+    <TextView
+        android:id="@+id/exercise_title_text"
+        android:text="Exercise Title"
+        android:layout_centerHorizontal="true"
+        android:background="#BF000000"
+        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:textColor="#FFFFFF"
+        android:textSize="28sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <ase.activityminder.AutoResizeTextView
+        android:id="@+id/stopwatch_text"
+        android:text="00:00"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:textSize="85dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/tenth_text"
+        android:layout_alignBottom="@id/stopwatch_text"
+        android:layout_marginLeft="2dp"
+        android:text="0"
+        android:textColor="#fff"
+        android:textSize="30dp"
+        android:layout_marginBottom="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/stopwatch_text"/>
+
+    <LinearLayout
+        android:id="@+id/linear_button"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stopwatch_text">
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/start_button"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="2dp"
+            />
+
+        <!--android:layout_toLeftOf="@+id/reset_button"-->
+
+        <!--<Button-->
+            <!--android:id="@+id/reset_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="2dp"-->
+            <!--android:text="Reset"/>-->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/totaltime_text"
+        android:layout_centerHorizontal="true"
+        android:textColor="#CCFFFFFF"
+        android:layout_below="@id/linear_button"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/index_text"
+        android:layout_below="@id/totaltime_text"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <!--<Button-->
+        <!--android:id="@+id/to_database_button"-->
+        <!--android:layout_alignParentBottom="true"-->
+
+        <!--android:text="Go to database..."-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="goToDatabase"/>-->
+
+    <!--android:layout_toRightOf="@id/start_button"-->
+
+</RelativeLayout>

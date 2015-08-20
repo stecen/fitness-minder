@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:id="@+id/layout"
+    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
+    android:padding="0dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <!--<com.terlici.dragndroplist.DragNDropListView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="9"-->
+            <!--android:id="@+id/listView"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true" />-->
+
+        <com.mobeta.android.dslv.DragSortListView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:dslv="http://schemas.android.com/apk/res-auto"
+
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="9"
+            android:id="@+id/listView"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+
+            dslv:click_remove_id="@+id/click_remove"
+            dslv:collapsed_height="1px"
+            dslv:drag_enabled="true"
+            dslv:drag_handle_id="@+id/drag_handle"
+            dslv:drag_scroll_start="0.33"
+            dslv:drag_start_mode="onDown"
+            dslv:float_alpha="0.6"
+            dslv:remove_enabled="true"
+            dslv:remove_mode="clickRemove"
+            dslv:slide_shuffle_speed="0.3"
+            />
+
+
+        <!--<ListView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="9"-->
+            <!--android:id="@+id/listView"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_centerHorizontal="true" />-->
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:text="Delete"
+            android:id="@+id/delete_workout_button"
+            android:onClick="removeWorkouts" />
+    </LinearLayout>
+
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/floating_new_button"
+        android:onClick="newWorkout"
+        android:src="@drawable/plusbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_pressed"
+        android:layout_margin="24dp" />
+</RelativeLayout>

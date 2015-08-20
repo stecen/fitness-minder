@@ -1,0 +1,112 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" tools:context=".MainActivity"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/background_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_background2"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/login_background"
+            />
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="155dp"
+        android:inputType="text"
+        android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM"
+        android:maxLength="10"
+        android:hint="Username"
+
+        android:layout_marginBottom="1dp"
+
+
+        android:background="#77000000"
+        android:textColorHint="@color/edit_button"
+        android:textColor="#fff"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/password_text"
+        android:layout_below="@id/username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textWebPassword"
+        android:hint="Password"
+
+        android:background="#77000000"
+        android:textColorHint="@color/edit_button"
+        android:textColor="#fff"
+        android:padding="12dp"/>
+
+    <ImageView
+        android:id="@+id/login_button"
+        android:onClick="logInClicked"
+        android:layout_below="@id/password_text"
+        android:layout_marginTop="20dp"
+
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:alpha=".8"
+
+        android:layout_centerHorizontal="true"
+
+        android:src="@drawable/forward" />
+
+    <!--<Button-->
+        <!--android:text="Log in not so pretty button"-->
+        <!--android:onClick="logInClicked"-->
+        <!--android:layout_below="@id/password_text"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/login_button" />-->
+
+    <TextView
+        android:text="Create user"
+        android:textColor="#fff"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="center"
+
+        android:layout_marginBottom="15dp"
+
+        android:onClick="createUserClicked"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<Button-->
+            <!--android:text="Upload Workout"-->
+            <!--android:onClick="uploadWorkoutsClicked"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+
+        <!--<Button-->
+            <!--android:text="Download Workout"-->
+            <!--android:onClick="downloadWorkoutsClicked"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+    <!--</LinearLayout>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/debug_text"-->
+        <!--android:layout_margin="15dp"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content" />-->
+</RelativeLayout>

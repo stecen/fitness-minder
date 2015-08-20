@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/new_username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:digits="0123456789qwertzuiopasdfghjklyxcvbnmQWERTZUIOPASDFGHJKLYXCVBNM"
+        android:maxLength="25"
+        android:hint="Username" />
+
+    <EditText
+        android:id="@+id/new_password_text"
+        android:layout_below="@id/new_username_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textWebPassword"
+        android:hint="Password"/>
+
+
+
+    <Button
+        android:layout_marginTop="10dp"
+        android:text="Create user"
+        android:layout_below="@id/new_password_text"
+        android:background="@drawable/rounded_button"
+        android:textColor="#fff"
+        android:onClick="createUserClicked"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>

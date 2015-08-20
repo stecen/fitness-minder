@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FitnessTheme" parent="@style/Theme.AppCompat">
+        <item name="android:actionBarStyle">@style/FitnessActionBar</item>
+    </style>
+
+    <style name="FitnessActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">#A3EB5B</item>
+        <!--http://www.colourlovers.com/palette/1601811/Biofield_Energies-->
+    </style>
+</resources>

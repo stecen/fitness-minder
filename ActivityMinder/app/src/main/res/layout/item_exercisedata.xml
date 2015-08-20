@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/return_button"
+        android:layout_width="13dp"
+        android:contentDescription="Click to select exercise"
+        android:layout_height="80dp"
+        android:src="@drawable/triangleback"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentLeft="true"
+        android:clickable="true" />
+
+    <TextView
+        android:id="@+id/aexercise_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Study cursorssssssssssssssssssss"
+        android:layout_toRightOf="@id/return_button"
+        android:textSize="25sp"
+        android:paddingBottom="0dp"
+        android:layout_marginBottom="0dp"
+        android:lines="1"
+        android:ellipsize="end"/>
+
+    <TextView
+        android:id="@+id/arating_text"
+        android:text="0.0"
+        android:layout_alignParentRight="true"
+        android:textSize="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@drawable/rounded_button"
+        android:textColor="#ffffff" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_below="@id/arating_text"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp">
+
+
+        <TextView
+            android:id="@+id/alevel_text"
+            android:text="N00b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/muscles_text"
+            android:text="Fingers"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/atype_text"
+            android:text="Olympian"
+            android:textSize="12sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</RelativeLayout>
