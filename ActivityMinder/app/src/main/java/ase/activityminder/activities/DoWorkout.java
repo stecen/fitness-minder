@@ -8,17 +8,11 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
-import android.view.Display;
-import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -56,7 +50,7 @@ public class DoWorkout extends Activity {
     TextView totalTimeText, indexText, exerciseTitleText;
     TextView tenthText;
     CountDownTimer workoutCountDownTimer;
-    Button startPauseButton/*, resetButton*/;
+    Button startPauseButton;
 
     long COUNTDOWN_TIME = 15000;
     final int TIME_EPS = 10; // minimum time threshold for voice alerts
@@ -137,6 +131,9 @@ public class DoWorkout extends Activity {
         // region startButton
         startPauseButton.setOnClickListener(new View.OnClickListener() {
 
+            long nextTimeToSayRep = -123456;
+            int numRepsToSay = 0; // reset each time there is a new reps count exercise
+
             @Override
             public void onClick(View v) {
                 if (stopwatchText.getText().toString() == "00:00.0") { // if there is no time left
@@ -151,7 +148,7 @@ public class DoWorkout extends Activity {
                     // resume the countdown
                     startPauseButton.setText("Pause");
 
-                    workoutCountDownTimer = new CountDownTimer(timeWhenResumes, 50) { // "tick" every 50 milliseconds
+                    workoutCountDownTimer = new CountDownTimer(timeWhenResumes, 25) { // "tick" every 14 milliseconds
 
                         @Override
                         public void onTick(long millisUntilFinished) {
@@ -162,6 +159,12 @@ public class DoWorkout extends Activity {
                                 // exerciseIndex should be 0 in the line below
                                 // (since isBegin should only be true when you are trying to reset / you just started the workout)
                                 exerciseTitleText.setText(currentWorkout.getExercises().get(exerciseIndex).getName());
+
+                                Exercise ex = currentWorkout.getExercises().get(exerciseIndex);
+                                if (ex.getCountType() == Exercise.REPS_COUNT) {   /// SET UP WHEN TO FIRST TALK ABOUT THE NUMBER OF REPS
+                                    nextTimeToSayRep = roundUpSecond(millisUntilFinished) - ex.getTimePerRep()*1000;
+                                    numRepsToSay++;
+                                }
                             }
 
                             totalTimeText.setText(stringifyTime(millisUntilFinished, false));
@@ -176,10 +179,39 @@ public class DoWorkout extends Activity {
 
                             if (!hasSpokenFive.get(exerciseIndex) && Math.abs(5000+SPEAKING_DELAY - timeRemForThis) < TIME_EPS) { // 5 seconds left for this exercise -- notify the user (first condition makes sure that you do not say 5 seconds left a million times for this one exercise))
                                 hasSpokenFive.set(exerciseIndex, true); // register that this 5 second warning has already been spoken
-                                if (!tts.isSpeaking()) { // other speakers have higher priority
+                                if (!tts.isSpeaking() && currentWorkout.getExercises().get(exerciseIndex).getCountType() == Exercise.DURATION_COUNT) { // other speakers have higher priority
                                     tts.speak("5 seconds left", TextToSpeech.QUEUE_FLUSH, null);
                                 }
-                            }  else if (exerciseIndex < exerciseDurations.size() && millisUntilFinished < afterThisDuration.get(exerciseIndex)) { // if time to move onto the next exercise
+                            } /*else if (currentWorkout.getExercises().get(exerciseIndex).getCountType() == Exercise.REPS_COUNT &&
+                                    millisUntilFinished < nextTimeToSayRep) {
+
+
+                                    /////////////// say that it's time to do a rep
+//
+//
+//                                nextTimeToSayRep = roundUpSecond(millisUntilFinished) -
+//                                        (long)currentWorkout.getExercises().get(exerciseIndex).getTimePerRep() * 1000l;
+//
+//                                Log.e("yay", String.format("round up = %d,   delta = %d", roundUpSecond(millisUntilFinished),
+//                                        currentWorkout.getExercises().get(exerciseIndex).getTimePerRep()*1000));
+//
+//                                Log.e("yay", String.valueOf(nextTimeToSayRep));
+//
+//                                if (!tts.isSpeaking()) {
+//                                    tts.speak(String.valueOf(numRepsToSay), TextToSpeech.QUEUE_FLUSH, null); // say the rep
+//                                }
+//
+//                                if (numRepsToSay == currentWorkout.getExercises().get(exerciseIndex).getReps()) {// if last rep in exercise, reset variables
+//                                    Log.e("add", "last rep");
+//                                    numRepsToSay = 1;
+//
+//
+//                                }
+//
+//                                numRepsToSay++;
+
+
+                            }*/ else if (exerciseIndex < exerciseDurations.size() && millisUntilFinished < afterThisDuration.get(exerciseIndex)) { // if time to move onto the next exercise
                                 Toast.makeText(getApplicationContext(), "Moving onto next exercise with " + timeRemForThis + " ms left.", Toast.LENGTH_SHORT).show();
                                 timeRemForThis = millisUntilFinished - afterThisDuration.get(++exerciseIndex); // INCREMENT HERE
                                 exerciseTitleText.setText(currentWorkout.getExercises().get(exerciseIndex).getName()); // update title of exercise
@@ -204,7 +236,7 @@ public class DoWorkout extends Activity {
                             displayTenth(0);
 
                             Toast.makeText(getApplicationContext(), "FINISHED!", Toast.LENGTH_LONG).show();
-                            tts.speak("Nice work!", TextToSpeech.QUEUE_FLUSH, null);
+                            tts.speak("...Nice work!", TextToSpeech.QUEUE_ADD, null);
                             isFinished = true;// done with workout
 
                             // bring you to congratulatory screen
@@ -215,6 +247,16 @@ public class DoWorkout extends Activity {
 
                             finish(); // deletes notification and destroys this activity
                         }
+
+
+
+                        public long roundUpSecond(long num) {
+                            int mod = (int)num % 1000;
+                            int add = 1000 - mod;
+                            Log.e("add", String.valueOf(num) + " " + add);
+                            return num + add + 200;
+                        }
+
                     };
 
 
@@ -224,6 +266,8 @@ public class DoWorkout extends Activity {
 
                 runOrPause = 1 - runOrPause; // toggle between whether the timer is paused or running
             }
+
+
         });
         //endregion startButton
 
@@ -249,7 +293,7 @@ public class DoWorkout extends Activity {
 //                    isTTSInitialized = true;
                     tts.setLanguage(Locale.US);
 //                    tts.setPitch(20000);
-                    tts.speak("Initialized.", TextToSpeech.QUEUE_FLUSH, null);
+//                    tts.speak("Initialized.", TextToSpeech.QUEUE_FLUSH, null);
                 }
             }
         });
@@ -371,7 +415,7 @@ public class DoWorkout extends Activity {
             return name + " for " + String.valueOf(curExercise.getDuration()) + " seconds";
         }
 
-        return "I have no idea sorry lol";
+        return "I have no idea, sorry";
     }
 
     private void initArrayLists() {

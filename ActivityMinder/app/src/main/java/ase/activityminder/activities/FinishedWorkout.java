@@ -31,6 +31,8 @@ public class FinishedWorkout extends ActionBarActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_finishedworkout);
 
+        // yeah, 8 gigs is good enough lmao
+
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         setTitle("Nice work!");
         if (bar != null) {

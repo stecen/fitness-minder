@@ -13,9 +13,6 @@ import android.widget.Toast;
 import ase.activityminder.R;
 import ase.activityminder.activities.edit.EditExercise;
 
-/**
- * Created by Rohan on 7/28/2015.
- */
 public class Duration extends Fragment {
     ToolbarListener activityCallback;
     Button button;

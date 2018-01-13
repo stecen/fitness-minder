@@ -100,9 +100,11 @@ public class WorkoutList extends Fragment {
         // Floating plus button
         FloatingActionButton floatingNewButton = (FloatingActionButton) view.findViewById(R.id.floating_new_button);
         floatingNewButton.setType(FloatingActionButton.TYPE_NORMAL);
+        floatingNewButton.attachToListView(listView);
         //floatingNewButton.attachToListView(listView);
         floatingNewButton.setShadow(true);
         floatingNewButton.show();
+
         floatingNewButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
