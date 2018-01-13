@@ -1,0 +1,3 @@
+ create table users(_id integer primary key auto_increment, username varchar not null, password varchar(50) not null, workouts mediumblob);
+
+ select _id, username, password, SUBSTRING(workouts,1,32) from users;
