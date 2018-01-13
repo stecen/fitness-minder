@@ -1,1 +1,1 @@
-<img src="fitnessMinderProject.png"">
+<img src="fitnessMinderProject.png">
