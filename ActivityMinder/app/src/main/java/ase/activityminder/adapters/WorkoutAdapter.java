@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -26,7 +25,7 @@ import ase.activityminder.activities.MainActivity;
 import ase.activityminder.activities.edit.EditWorkout;
 import ase.activityminder.serializables.Workout;
 
-public class WorkoutAdapter extends ArrayAdapter<Workout>  {
+public class WorkoutAdapter extends ArrayAdapter<Workout> {
 
     List<Workout> workouts;
     ArrayList<Integer> deletePositions;
@@ -34,7 +33,7 @@ public class WorkoutAdapter extends ArrayAdapter<Workout>  {
     Context context;
     Activity mainActivity;
 
-    public WorkoutAdapter(List<Workout> workoutList, Context ctx,ArrayList<Integer> deletePositions, Activity mActivity) {
+    public WorkoutAdapter(List<Workout> workoutList, Context ctx, ArrayList<Integer> deletePositions, Activity mActivity) {
         super(ctx, R.layout.item_workout, workoutList);
         this.workouts = workoutList;
         this.context = ctx;
@@ -61,21 +60,6 @@ public class WorkoutAdapter extends ArrayAdapter<Workout>  {
                 doWorkout(position);
             }
         });
-//        workoutLinearRow.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        workoutLinearRow.setBackgroundDrawable(mainActivity.getResources().getDrawable(R.color.gray));
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        workoutLinearRow.setBackgroundDrawable(mainActivity.getResources().getDrawable(R.color.white));
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
-
 
         // Now we can fill the layout with the right values
         TextView tv = (TextView) convertView.findViewById(R.id.workout_text);
@@ -86,21 +70,6 @@ public class WorkoutAdapter extends ArrayAdapter<Workout>  {
                 doWorkout(position);
             }
         });
-//        tv.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN:
-//                        workoutLinearRow.setBackgroundDrawable(mainActivity.getResources().getDrawable(R.color.gray));
-//                        break;
-//                    case MotionEvent.ACTION_UP:
-//                        workoutLinearRow.setBackgroundDrawable(mainActivity.getResources().getDrawable(R.color.white));
-//                        break;
-//                }
-//                return false;
-//            }
-//        });
-
 
         CheckBox chBox = (CheckBox) convertView.findViewById(R.id.check_box);
         chBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -146,22 +115,22 @@ public class WorkoutAdapter extends ArrayAdapter<Workout>  {
         return convertView;
     }
 
-    public ArrayList<Integer> getDeletePositions( ) {
+    public ArrayList<Integer> getDeletePositions() {
         return deletePositions;
     }
 
     private void doWorkout(int position) {
         // DO the workout
-        if (workouts.get(position).getExercises().isEmpty()){
+        if (workouts.get(position).getExercises().isEmpty()) {
             Toast.makeText(context, "There are no exercises in this workout!", Toast.LENGTH_SHORT).show();
-        } else{
+        } else {
             Intent intent = new Intent(mainActivity, DoWorkout.class);
             intent.putExtra("PLAY_WORKOUT", workouts.get(position));
             intent.putExtra("WORKOUT_POSITION", position);
 
-            ((MainActivity)mainActivity).workouts.get(position).incrementNumberOfPlays(); // you did this workout one more time
-            ((MainActivity)mainActivity).saveWorkoutsFile();
-            ((MainActivity)mainActivity).readWorkoutsFile();
+            ((MainActivity) mainActivity).workouts.get(position).incrementNumberOfPlays(); // you did this workout one more time
+            ((MainActivity) mainActivity).saveWorkoutsFile();
+            ((MainActivity) mainActivity).readWorkoutsFile();
 
 //            Toast.makeText(mainActivity, "Increment workouts count to " + String.valueOf(((MainActivity)mainActivity).workouts.get(position).getNumberOfPlays()), Toast.LENGTH_SHORT).show();
 

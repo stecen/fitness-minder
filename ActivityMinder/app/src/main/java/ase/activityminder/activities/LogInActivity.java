@@ -9,31 +9,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Vibrator;
-import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import ase.activityminder.R;
 import ase.activityminder.UsernameFilter;
+import ase.activityminder.http.WorkoutsHttpManager;
 import ase.activityminder.serializables.Exercise;
 import ase.activityminder.serializables.Workout;
-import ase.activityminder.http.WorkoutsHttpManager;
 
 public class LogInActivity extends Activity {
-    Exercise a,b;
+    Exercise a, b;
     ArrayList<Workout> workouts;
 
     ImageView bgImage;
@@ -43,6 +38,11 @@ public class LogInActivity extends Activity {
     SharedPreferences settings;
 
     Vibrator vib;
+
+    public static void hideSoftKeyboard(Activity activity, View view) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +98,7 @@ public class LogInActivity extends Activity {
         w1.setNumberOfPlays(0);
         w1.setTitle("Workout1");
 
-        Workout w2  = new Workout();
+        Workout w2 = new Workout();
         w2.setExercises(exerciseList2);
         w2.setNumberOfPlays(1);
         w2.setTitle("asdfasdfasdfworkout");
@@ -154,7 +154,6 @@ public class LogInActivity extends Activity {
         startActivity(intent);
     }
 
-
     public class LogInAsync extends AsyncTask<Void, Void, Void> {
         String username, password;
         Boolean success = false;
@@ -198,10 +197,5 @@ public class LogInActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Username / password combination not recognized...", Toast.LENGTH_LONG).show();
             }
         }
-    }
-
-    public static void hideSoftKeyboard(Activity activity, View view) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 }

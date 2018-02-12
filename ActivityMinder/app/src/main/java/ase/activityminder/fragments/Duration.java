@@ -39,8 +39,8 @@ public class Duration extends Fragment {
     public void onStart() {
         super.onStart();
 
-        int length =  EditExercise.exerciseDuration;
-        if(activityName.equals("activities.edit.EditExercise")) {
+        int length = EditExercise.exerciseDuration;
+        if (activityName.equals("activities.edit.EditExercise")) {
             int hours = length / 3600;
             int minutes = (length - hours * 3600) / 60;
             int seconds = (length - hours * 3600) - minutes * 60;
@@ -49,11 +49,6 @@ public class Duration extends Fragment {
             second.setText(Integer.toString(seconds));
         }
 
-    }
-
-
-    public interface ToolbarListener {
-        public void setDuration ( int num);
     }
 
     public void onAttach(Activity activity) {
@@ -67,24 +62,24 @@ public class Duration extends Fragment {
         }
     }
 
-    public void buttonClicked(View v)
-    {
+    public void buttonClicked(View v) {
         String hourText = hour.getText().toString();
         String minuteText = minute.getText().toString();
         String secondText = second.getText().toString();
-        if(hourText != "" && minuteText != "" && secondText != "" && !hourText.isEmpty() && !minuteText.isEmpty() && !secondText.isEmpty())
-        {
+        if (hourText != "" && minuteText != "" && secondText != "" && !hourText.isEmpty() && !minuteText.isEmpty() && !secondText.isEmpty()) {
             int hr = Integer.valueOf(hourText);
             int mn = Integer.valueOf(minuteText);
             int sc = Integer.valueOf(secondText);
             int num = hr * 3600 + mn * 60 + sc;
             activityCallback.setDuration(num);
-        }
-        else
-        {
-            Toast toast = Toast.makeText(getActivity(),"Please enter valid inputs", Toast.LENGTH_SHORT);
+        } else {
+            Toast toast = Toast.makeText(getActivity(), "Please enter valid inputs", Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    public interface ToolbarListener {
+        public void setDuration(int num);
     }
 
 

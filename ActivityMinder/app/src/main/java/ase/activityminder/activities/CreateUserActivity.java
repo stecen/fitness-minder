@@ -5,18 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import ase.activityminder.R;
 import ase.activityminder.UsernameFilter;
-import ase.activityminder.activities.edit.EditExercise;
 import ase.activityminder.http.WorkoutsHttpManager;
 
 /**

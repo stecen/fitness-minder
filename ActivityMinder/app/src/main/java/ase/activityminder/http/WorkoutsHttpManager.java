@@ -32,7 +32,7 @@ import ase.activityminder.serializables.Workout;
 public class WorkoutsHttpManager {
     // TODO: make a static variable for IP
     public static final String SOCKET_ADDRESS = "http://bmw.cs.pdx.edu:9999";
-//    public static final String SOCKET_ADDRESS = "http://10.200.85.187:9999";
+    //    public static final String SOCKET_ADDRESS = "http://10.200.85.187:9999";
 //    public static final String SOCKET_ADDRESS = "http://192.168.1.182:9999";
     private static final Gson gson = new Gson();
 
@@ -243,7 +243,7 @@ public class WorkoutsHttpManager {
             con.setDoOutput(true);
             con.setDoInput(true);
 
-            Log.e("userpass", username +", "+password);
+            Log.e("userpass", username + ", " + password);
 
             // POST
             int responseCode = postToServer(con, postParameters);

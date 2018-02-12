@@ -14,12 +14,12 @@ import ase.activityminder.R;
 import ase.activityminder.activities.edit.EditExercise;
 
 public class Repetition extends Fragment {
-    ToolbarListener activityCallback;
-
-    String activityName;
     public EditText numRep;
     public EditText numTime;
+    ToolbarListener activityCallback;
+    String activityName;
     View view = null;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_repetition, container, false);
         numRep = (EditText) view.findViewById(R.id.editText3);
@@ -37,14 +37,10 @@ public class Repetition extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(activityName.equals("activities.edit.EditExercise")) {
+        if (activityName.equals("activities.edit.EditExercise")) {
             numRep.setText(String.valueOf(EditExercise.exerciseReps));
             numTime.setText(String.valueOf(EditExercise.exerciseTimePerRep));
         }
-    }
-
-    public interface ToolbarListener {
-        public void setRepetition ( int numRep, int numTime);
     }
 
     public void onAttach(Activity activity) {
@@ -58,28 +54,27 @@ public class Repetition extends Fragment {
         }
     }
 
-    public void buttonClicked(View v)
-    {
-        String repetitionNum = numRep.getText().toString() ;
+    public void buttonClicked(View v) {
+        String repetitionNum = numRep.getText().toString();
         String timeNum = numTime.getText().toString();
         boolean validFields = false;
-        if(repetitionNum != "" && timeNum != "" && !repetitionNum.isEmpty() && !timeNum.isEmpty())
-        {
+        if (repetitionNum != "" && timeNum != "" && !repetitionNum.isEmpty() && !timeNum.isEmpty()) {
             validFields = true;
         }
-        if(validFields)
-        {
+        if (validFields) {
             activityCallback.setRepetition(Integer.valueOf(repetitionNum), Integer.valueOf(timeNum));
-        }else
-        {
-            Toast toast = Toast.makeText(getActivity(),"Please enter valid inputs", Toast.LENGTH_SHORT);
+        } else {
+            Toast toast = Toast.makeText(getActivity(), "Please enter valid inputs", Toast.LENGTH_SHORT);
             toast.show();
         }
     }
 
-    public void changeText(int reps,int durationReps)
-    {
+    public void changeText(int reps, int durationReps) {
         numRep.setText(Integer.toString(reps));
         numTime.setText(Integer.toString(durationReps));
+    }
+
+    public interface ToolbarListener {
+        public void setRepetition(int numRep, int numTime);
     }
 }

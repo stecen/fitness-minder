@@ -3,55 +3,41 @@ package ase.activityminder.fragments;
 /**
  * Created by Steven on 8/17/2015.
  */
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Handler;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Locale;
 
 import ase.activityminder.R;
 import ase.activityminder.activities.DoWorkout;
 import ase.activityminder.activities.MainActivity;
-import ase.activityminder.activities.edit.NewWorkout;
 import ase.activityminder.adapters.StupidWorkoutAdapterSorted;
-import ase.activityminder.adapters.WorkoutAdapter;
-import ase.activityminder.http.WorkoutsHttpManager;
 import ase.activityminder.serializables.Workout;
 
 
 public class FrequentList extends Fragment {
+    public static StupidWorkoutAdapterSorted workoutAdapter;
+    static boolean isActive = false; // not used
     ListView listView;
     Button deleteWorkoutButton;
-    public static StupidWorkoutAdapterSorted workoutAdapter;
-    private android.support.v4.widget.SwipeRefreshLayout swipeRefresh;
-
-
-    static boolean isActive = false; // not used
-
     TextToSpeech tts;
-
     Vibrator vibrator;
-
     ArrayList<Workout> sorted;
+    private android.support.v4.widget.SwipeRefreshLayout swipeRefresh;
 
     //TODO: Swipe refresh layout to download
 
@@ -64,7 +50,7 @@ public class FrequentList extends Fragment {
         listView = (ListView) view.findViewById(R.id.listView);
 
         sorted = new ArrayList<>();
-        sorted = ((MainActivity)getActivity()).workouts;
+        sorted = ((MainActivity) getActivity()).workouts;
 
         Collections.sort(sorted, new CustomComparator());
 
@@ -72,7 +58,6 @@ public class FrequentList extends Fragment {
 
         // This is a simple adapter that accepts as parameter
         // Context, Data list, The row layout that is used during the row creation, The keys used to retrieve the data, The View id used to show the data. The key number and the view id must match
-
 
         listView.setAdapter(workoutAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -92,7 +77,6 @@ public class FrequentList extends Fragment {
             }
         });
 
-
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         return view;
@@ -105,12 +89,6 @@ public class FrequentList extends Fragment {
             return o1.compareTo(o2);
         }
     }
-
-
-
-
-
-
 
 
 }

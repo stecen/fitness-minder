@@ -8,12 +8,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Display;
@@ -86,37 +84,39 @@ import ase.activityminder.serializables.Workout;
 
 //endregion pikachu
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends ActionBarActivity {
 
     public static final int REQUEST_CODE = 5;
-    //workoutList variablesw
-    FragmentManager fm;
-    public volatile ArrayList<Workout> workouts = new ArrayList<>();
     public static ArrayList<Integer> deletePositions = new ArrayList<>();
     public static String username;
-    ArrayList<String> drawerListItems = new ArrayList<>();
-
-    //navigation drawer things
-    ListView drawerListView;
-    ArrayAdapter drawerAdapter;
-
+    public static int SCREEN_WIDTH;
+    public static int SCREEN_HEIGHT;
     // Variables dealing with storing files
     final String externalStorage = Environment.getExternalStorageDirectory().getPath();
     final String folderName = "ActivityMinder";
-    private String fileName = "guest.bin";
+    public volatile ArrayList<Workout> workouts = new ArrayList<>();
+    //workoutList variablesw
+    FragmentManager fm;
+    ArrayList<String> drawerListItems = new ArrayList<>();
+    //navigation drawer things
+    ListView drawerListView;
+    ArrayAdapter drawerAdapter;
     File folder = new File(externalStorage, folderName);
     File serializeFile; // file to save workouts in
-
     ConnectivityManager connManager;
     NetworkInfo mWifi;
     NetworkInfo mMobile;
-
-    public static int SCREEN_WIDTH;
-    public static int SCREEN_HEIGHT;
-
     Context context;
-
     SharedPreferences settings; // for logging out and deleting stored username from file
+    private String fileName = "guest.bin";
+
+    public static ArrayList<Integer> getDeletePositions() {
+        return deletePositions;
+    }
+
+    public static void setDeletePositions(ArrayList<Integer> deletePositions) {
+        MainActivity.deletePositions = deletePositions;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +161,7 @@ public class MainActivity extends ActionBarActivity{
         fileName = username.trim() + ".bin"; // create file just for this user
         Log.e("login", "Logged in as " + username + ", using file " + fileName);
 //        Toast.makeText(this, "Logged in as " + username + ", using file " + fileName, Toast.LENGTH_SHORT).show();
-        serializeFile = new File(externalStorage+"/"+folderName, fileName); // stores the workout list in the specific user's file
+        serializeFile = new File(externalStorage + "/" + folderName, fileName); // stores the workout list in the specific user's file
 
         // set shared preferences to be able to log out
         settings = getSharedPreferences("UsernamePassword", Context.MODE_PRIVATE);
@@ -175,7 +175,7 @@ public class MainActivity extends ActionBarActivity{
 
         drawerListView = (ListView) findViewById(R.id.left_drawer);
 
-        drawerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, drawerListItems){
+        drawerAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, android.R.id.text1, drawerListItems) {
             @Override
             public Object getItem(int position) {
                 return super.getItem(position);
@@ -206,62 +206,13 @@ public class MainActivity extends ActionBarActivity{
 
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-            String clickedString = (String) parent.getItemAtPosition(position); // get the strnig that was clicked
-
-            android.support.v4.widget.DrawerLayout mDrawerLayout;
-            mDrawerLayout = (android.support.v4.widget.DrawerLayout) findViewById(R.id.drawer_layout);
-            mDrawerLayout.closeDrawers();
-
-//            Toast.makeText(getApplicationContext(), "Clicked on " + clickedString, Toast.LENGTH_SHORT).show();
-            Log.v("clicklistener", "clicked: " + Integer.toString(position) + " " + clickedString);
-
-            if (clickedString.equals("All Routines")) { // display all workouts fragment
-                setTitle(username + "'s routines");
-
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.content_frame, new WorkoutList());
-                ft.commit();
-
-
-            } else if (clickedString.equals("Log Out")) {
-            // log out by clearing shared preference and going back to log in screen
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("username", "null");
-                editor.apply();
-
-                Intent loginIntent = new Intent(MainActivity.this, LogInActivity.class);
-                startActivity(loginIntent);
-                finish();
-            } else if (clickedString.equals("Exercise Database")) {
-                // view exercise database
-                Intent intent = new Intent(Intent.ACTION_SEARCH, null, context, QueryDatabaseActivity.class);
-                startActivity(intent);
-            } else if (clickedString.equals("Frequent Routines")) {
-                setTitle("Frequent routines");
-                FragmentTransaction ft = fm.beginTransaction();
-                ft.replace(R.id.content_frame, new FrequentList());
-                ft.commit();
-            }
-        }
-    }
-
-
     public boolean isConnectedToNetwork() {
         return mWifi.isConnected() || mMobile.isConnected();
     }
 
-
     // Displays the local file workouts, and then updates it with the server version if available
     public void readWorkoutsFile() {
         Log.e("test", "readWorkoutsFile");
-
-//        WorkoutList workoutListFrag = (WorkoutList) getFragmentManager().findFragmentById(R.id.content_frame);
-//        if (workoutListFrag != null) {
-//            workoutListFrag.downloadWorkouts();
-//        }
 
         if (folder.exists()) {
             if (serializeFile.exists()) {
@@ -341,10 +292,10 @@ public class MainActivity extends ActionBarActivity{
         switch (item.getItemId()) {
             case R.id.action_delete:
                 WorkoutList articleFrag = (WorkoutList) getFragmentManager().findFragmentById(R.id.content_frame);
-                if(articleFrag != null) {
+                if (articleFrag != null) {
                     articleFrag.removeWorkouts();
                 } else {
-                    Log.v("Fragment","fragment is null");
+                    Log.v("Fragment", "fragment is null");
                 }
 
                 return true;
@@ -359,8 +310,7 @@ public class MainActivity extends ActionBarActivity{
 
     }
 
-
-/////////////Finished startActivityForResult() -- you created a workout and it is being sent back here ///////////////////////////////
+    /////////////Finished startActivityForResult() -- you created a workout and it is being sent back here ///////////////////////////////
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        Toast.makeText(this, String.format("%d %d", requestCode, resultCode), Toast.LENGTH_SHORT).show();
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) { // created new workout
@@ -372,7 +322,7 @@ public class MainActivity extends ActionBarActivity{
             if (articleFrag != null) {
                 articleFrag.notifyChanged();
             } else {
-                Log.v("Fragment","fragment is null");
+                Log.v("Fragment", "fragment is null");
             }
 
         }
@@ -386,17 +336,13 @@ public class MainActivity extends ActionBarActivity{
             saveWorkoutsFile();
 
             WorkoutList articleFrag = (WorkoutList) getFragmentManager().findFragmentById(R.id.content_frame);
-            if(articleFrag != null)
-            {
+            if (articleFrag != null) {
                 articleFrag.notifyChanged();
-            }else
-            {
-                Log.v("Fragment","fragment is null");
+            } else {
+                Log.v("Fragment", "fragment is null");
             }
         }
     }
-
-
 
     public ArrayList<Workout> getWorkouts() {
         return workouts;
@@ -406,12 +352,45 @@ public class MainActivity extends ActionBarActivity{
         this.workouts = workouts;
     }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            String clickedString = (String) parent.getItemAtPosition(position); // get the strnig that was clicked
 
-    public static ArrayList<Integer> getDeletePositions() {
-        return deletePositions;
-    }
+            android.support.v4.widget.DrawerLayout mDrawerLayout;
+            mDrawerLayout = (android.support.v4.widget.DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerLayout.closeDrawers();
 
-    public static void setDeletePositions(ArrayList<Integer> deletePositions) {
-        MainActivity.deletePositions = deletePositions;
+//            Toast.makeText(getApplicationContext(), "Clicked on " + clickedString, Toast.LENGTH_SHORT).show();
+            Log.v("clicklistener", "clicked: " + Integer.toString(position) + " " + clickedString);
+
+            if (clickedString.equals("All Routines")) { // display all workouts fragment
+                setTitle(username + "'s routines");
+
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.content_frame, new WorkoutList());
+                ft.commit();
+
+
+            } else if (clickedString.equals("Log Out")) {
+                // log out by clearing shared preference and going back to log in screen
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("username", "null");
+                editor.apply();
+
+                Intent loginIntent = new Intent(MainActivity.this, LogInActivity.class);
+                startActivity(loginIntent);
+                finish();
+            } else if (clickedString.equals("Exercise Database")) {
+                // view exercise database
+                Intent intent = new Intent(Intent.ACTION_SEARCH, null, context, QueryDatabaseActivity.class);
+                startActivity(intent);
+            } else if (clickedString.equals("Frequent Routines")) {
+                setTitle("Frequent routines");
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.content_frame, new FrequentList());
+                ft.commit();
+            }
+        }
     }
 }

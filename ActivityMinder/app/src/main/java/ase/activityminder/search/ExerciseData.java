@@ -11,24 +11,13 @@ import java.util.HashMap;
 
 
 public class ExerciseData {
-    public HashMap<String, String> info = new HashMap<>();
     //    String name, rating, type, muscle, otherMuscles, equipment, mechanics, level, guide, url;
     public static final String[] HASH_KEYS = {"name", "rating", "type", "muscle", "otherMuscles", "equipment", "mechanics", "level", "guide", "url"};
     public static final String[] ALL_TABLE_COLUMNS = {"_id", "name", "rating", "type", "muscle", "otherMuscles", "equipment", "mechanics", "level", "guide", "url"};
+    public HashMap<String, String> info = new HashMap<>();
 
 
     public ExerciseData(String n, String r, String t, String m, String o, String e, String mu, String l, String g, String u) {
-//        name = n;
-//        rating = r;
-//        type = t;
-//        muscle = mu;
-//        otherMuscles = o;
-//        equipment = e;
-//        mechanics = m;
-//        level = l;
-//        guide = g;
-//        url = u;
-
         info.put("name", n);
         info.put("rating", r);
         info.put("type", t);

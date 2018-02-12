@@ -14,19 +14,14 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
  */
 public class ExerciseDatabaseAssetHelper extends SQLiteAssetHelper {
 
-    public static boolean IS_VIRTUAL_CREATED = false;
-
     // Database Version
     private static final int DATABASE_VERSION = 1;
-
     // Database Name
     private static final String EXERCISE_DATABASE = "theholydatabase.db";
-
     // Contacts table name
     private static final String EXERCISES_TABLE = "exercises";
-
     private static final String VIRTUAL_TABLE = "virtualExercises";
-
+    public static boolean IS_VIRTUAL_CREATED = false;
     Context context;
 
     // TODO: GET SEARCH RESULTS WITH THIS FTS3 TABLE
@@ -43,9 +38,6 @@ public class ExerciseDatabaseAssetHelper extends SQLiteAssetHelper {
     // REMEMBER TO SORT, STEVEN
     public Cursor querySearchLimited(String query) {
         SQLiteDatabase db = getReadableDatabase();
-//        String statement = "SELECT * FROM " + VIRTUAL_TABLE + " WHERE " + "name" + " MATCH '*" + query + "*'" +
-//                " OR mechanics MATCH '*" + query + "*' OR otherMuscles MATCH '*" + query + "*' " +
-//                " OR muscle MATCH '*" + query + "*' OR level MATCH '*" + query + "*'";
         String statement = "SELECT * FROM " + EXERCISES_TABLE + " WHERE " + "name" + " LIKE '%" + query + "%' OR mechanics LIKE '%" +
                 query + "%' OR otherMuscles LIKE '%" + query + "%' OR type LIKE '%" + query + "%' OR equipment LIKE '%" +
                 query + "%' OR muscle LIKE '%" + query + "%'" + " ORDER BY name ";

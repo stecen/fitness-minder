@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
@@ -35,29 +34,26 @@ import ase.activityminder.search.ExerciseDatabaseAssetHelper;
  Activity that displays search results
  */
 public class QueryDatabaseActivity extends ActionBarActivity {
-    TextView displayText;
-    EditText indexEdit;
-    ListView exerciseDataListView;
-    ExerciseDataCursorAdapter exerciseDataAdapter;
-
-    SearchView exerciseDataSearch;
-
-    ExerciseDatabaseAssetHelper dbAssetHelper;
-
-    final Context activityContext = this;
-
-    Intent comingIntent; // intent coming from prev activity
-
     // use these to send result to editexercise/newexercise for when the user selects an execise in this activity,
     // edit exercise / new exercise gets the name of the selected exercise UR WELCOME
     public static final int REQUEST_CODE = 79;
     public static final int RESULT_CODE = 89369; // lol idk random number :^)
-
-    SharedPreferences settings; // determine if the user has already used the app once
-
     public static String selectedName = "nothing"; // string for previous activity to get selected exercise
-
+    final Context activityContext = this;
+    TextView displayText;
+    EditText indexEdit;
+    ListView exerciseDataListView;
+    ExerciseDataCursorAdapter exerciseDataAdapter;
+    SearchView exerciseDataSearch;
+    ExerciseDatabaseAssetHelper dbAssetHelper;
+    Intent comingIntent; // intent coming from prev activity
+    SharedPreferences settings; // determine if the user has already used the app once
     Vibrator vibrator;
+
+    public static void hideSoftKeyboard(Activity activity, View view) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+    }
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -109,7 +105,7 @@ public class QueryDatabaseActivity extends ActionBarActivity {
         comingIntent = getIntent();
         if (comingIntent != null) {
             if (comingIntent.getAction().equals(Intent.ACTION_SEARCH)) {
-                String query =  comingIntent.getStringExtra(SearchManager.QUERY); // does virtual table stuff
+                String query = comingIntent.getStringExtra(SearchManager.QUERY); // does virtual table stuff
 
                 if (query == null) {
                     setTitle("Browse Database");
@@ -123,7 +119,7 @@ public class QueryDatabaseActivity extends ActionBarActivity {
                 hideSoftKeyboard(this, exerciseDataListView);
             }
 
-        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         }
     }
 
@@ -153,7 +149,7 @@ public class QueryDatabaseActivity extends ActionBarActivity {
         exerciseDataAdapter = new ExerciseDataCursorAdapter(this, queryCursor, 0); // initialize adapter with cursor
         try {
             exerciseDataListView.setAdapter(exerciseDataAdapter); // display the cursor info with adapter
-        } catch(NullPointerException e) {
+        } catch (NullPointerException e) {
             Log.e("virtual", e.toString());
         }
 
@@ -161,17 +157,9 @@ public class QueryDatabaseActivity extends ActionBarActivity {
         exerciseDataListView.setOnItemClickListener(new ExerciseCursorOnClickListener(activityContext));
     }
 
-
     // send result to editexercise/newexercise for when the user selects an execise in this activity,
     // edit exercise / new exercise gets the name of the selected exercise UR WELCOME
     public void returnExerciseName(String name) {
-//        Toast.makeText(getApplicationContext(), "Selected " + name + " from database", Toast.LENGTH_SHORT).show();
-//
-//        Intent nameIntent = new Intent();
-//        nameIntent.putExtra("EXERCISE_NAME", name);
-//        setResult(RESULT_CODE, nameIntent);
-//        finish();
-
         vibrator.vibrate(30);
         QueryDatabaseActivity.selectedName = name; // let the previous activity access the selected exercise
         finish(); // go back to NewExercise/EditExercise
@@ -184,12 +172,6 @@ public class QueryDatabaseActivity extends ActionBarActivity {
         inflater.inflate(R.menu.menu_main, menu);
 
         return true;
-    }
-
-
-    public static void hideSoftKeyboard(Activity activity, View view) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
     }
 
     public void toast(String s) {

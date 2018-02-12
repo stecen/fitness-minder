@@ -3,15 +3,14 @@ package ase.activityminder.serializables;
 import java.io.Serializable;
 
 public class Exercise implements Serializable {
+    public final static int REPS_COUNT = 0;
+    public final static int DURATION_COUNT = 1;
+    public int id; // id (for use with database);
     private String type;
     private int duration = -1;
     private int reps = -1;
     private int time = -1;
-    public int id; // id (for use with database);
-
     private int countType;
-    public final static int REPS_COUNT = 0;
-    public final static int DURATION_COUNT = 1;
 
     public Exercise() {
         type = "";

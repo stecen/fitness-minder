@@ -19,18 +19,17 @@ import java.util.List;
 
 import ase.activityminder.R;
 import ase.activityminder.activities.edit.EditExercise;
-import ase.activityminder.activities.edit.EditWorkout;
 import ase.activityminder.serializables.Exercise;
 
 public class ExerciseAdapter extends ArrayAdapter<Exercise> {
 
-    private List<Exercise> exerciseList;
-    private Context context;
     public final static int REQ_CODE_EXERCISE = 666;
     ArrayList<Integer> deletePositions;
     Activity exerciseActivity;
+    private List<Exercise> exerciseList;
+    private Context context;
 
-    public ExerciseAdapter(List<Exercise> exerciseList, Context ctx,ArrayList<Integer> deletePositions, Activity eActivity) {
+    public ExerciseAdapter(List<Exercise> exerciseList, Context ctx, ArrayList<Integer> deletePositions, Activity eActivity) {
         super(ctx, R.layout.row_exerciselist, exerciseList);
         this.exerciseList = exerciseList;
         this.context = ctx;
@@ -84,11 +83,10 @@ public class ExerciseAdapter extends ArrayAdapter<Exercise> {
         });
 
 
-
         return convertView;
     }
 
-    public ArrayList<Integer> getDeletePositions( ) {
+    public ArrayList<Integer> getDeletePositions() {
         return deletePositions;
     }
 }

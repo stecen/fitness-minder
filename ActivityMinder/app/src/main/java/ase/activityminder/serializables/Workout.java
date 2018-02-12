@@ -31,12 +31,15 @@ public class Workout implements Serializable, Comparable {
     public int getNumberOfPlays() {
         return numberOfPlays;
     }
+
     public void setNumberOfPlays(int i) {
         numberOfPlays = i;
     }
+
     public void resetNumberOfPlays() {
         numberOfPlays = 0;
     }
+
     public void incrementNumberOfPlays() {
         numberOfPlays++;
     }

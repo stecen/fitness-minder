@@ -13,7 +13,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import ase.activityminder.R;
-import ase.activityminder.fragments.WorkoutList;
 import ase.activityminder.serializables.Exercise;
 import ase.activityminder.serializables.Workout;
 
@@ -30,8 +29,6 @@ public class FinishedWorkout extends ActionBarActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.activity_finishedworkout);
-
-        // yeah, 8 gigs is good enough lmao
 
         android.support.v7.app.ActionBar bar = getSupportActionBar();
         setTitle("Nice work!");
@@ -73,16 +70,12 @@ public class FinishedWorkout extends ActionBarActivity {
         final Context context = this;
 
 
-
         backButton.setOnClickListener(new View.OnClickListener() { // go back to workout screen
             @Override
             public void onClick(View view) {
-//                if (WorkoutList.isActive) {
-//                    finish();
-//                } else { // create a new intent to the workoutlist
-                    Intent intent = new Intent(context, MainActivity.class);
-                    context.startActivity(intent);
-                    finish(); //
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+                finish(); //
 //                }
 
             }
@@ -94,7 +87,7 @@ public class FinishedWorkout extends ActionBarActivity {
 
         if (curExercise.getCountType() == Exercise.REPS_COUNT) {
             String pluralSuffix = "";
-            if (name.toLowerCase().charAt(name.length()-1) != 's') { // if exercise name is current singular
+            if (name.toLowerCase().charAt(name.length() - 1) != 's') { // if exercise name is current singular
                 pluralSuffix = "s"; // make it plural lol
             }
             return String.valueOf(curExercise.getReps()) + " " + name + pluralSuffix;
@@ -113,7 +106,7 @@ public class FinishedWorkout extends ActionBarActivity {
         sharingIntent.setType("text/plain");
 
         StringBuilder sb = new StringBuilder();
-        ArrayList<Exercise> exercises =workout.getExercises();
+        ArrayList<Exercise> exercises = workout.getExercises();
         for (int i = 0; i < exercises.size(); i++) {
             sb.append(getStringOfCurrentExercise(exercises.get(i))).append("\n");
         }

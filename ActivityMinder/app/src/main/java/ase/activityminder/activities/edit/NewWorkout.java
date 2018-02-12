@@ -1,16 +1,10 @@
 package ase.activityminder.activities.edit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Point;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,29 +12,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import ase.activityminder.activities.FinishedWorkout;
-import ase.activityminder.fragments.WorkoutList;
-import ase.activityminder.serializables.Exercise;
-import ase.activityminder.adapters.ExerciseAdapter;
 import ase.activityminder.R;
+import ase.activityminder.adapters.ExerciseAdapter;
+import ase.activityminder.serializables.Exercise;
 import ase.activityminder.serializables.Workout;
 
 public class NewWorkout extends ActionBarActivity {
+    public final static int REQ_CODE_EXERCISE = 666;
     ExerciseAdapter exerciseAdpt;
     EditText title;
-    Button  titleEnter;
-
+    Button titleEnter;
     Workout newWorkout;
-
     ArrayList<Integer> deletePositions = new ArrayList<>();
-    public final static int REQ_CODE_EXERCISE = 666;
     FloatingActionButton floatingNewButton;
 
 
@@ -110,10 +99,6 @@ public class NewWorkout extends ActionBarActivity {
     }
 
 
-
-
-
-
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
 
@@ -139,9 +124,7 @@ public class NewWorkout extends ActionBarActivity {
     }
 
 
-
-    public void createNewExercise(View view)
-    {
+    public void createNewExercise(View view) {
 
         Intent intent = new Intent(this, NewExercise.class);
         startActivityForResult(intent, REQ_CODE_EXERCISE);
@@ -156,6 +139,7 @@ public class NewWorkout extends ActionBarActivity {
             exerciseAdpt.notifyDataSetChanged();
         }
     }
+
     public void sendBackToMainActivity() {
         newWorkout.setTitle(title.getText().toString());
         Intent resultIntent = new Intent(/*null*/);
@@ -164,10 +148,9 @@ public class NewWorkout extends ActionBarActivity {
         finish();
     }
 
-    public void deleteExercises()
-    {
+    public void deleteExercises() {
         exerciseAdpt.getDeletePositions();
-        for(int i = 0;i<deletePositions.size();i++) {
+        for (int i = 0; i < deletePositions.size(); i++) {
             int index = deletePositions.get(i);
             newWorkout.getExercises().remove(index);
             exerciseAdpt.notifyDataSetChanged();

@@ -2,7 +2,6 @@ package ase.activityminder.activities;
 
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import ase.activityminder.R;
 
-public class ExerciseDetailsActivity extends ActionBarActivity{
+public class ExerciseDetailsActivity extends ActionBarActivity {
     //    TextView detailsText[] = new TextView[10];
     TextView /*nameText,*/
             ratingText,

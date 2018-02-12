@@ -1,10 +1,8 @@
 package ase.activityminder.activities.edit;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -12,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -21,24 +18,22 @@ import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 
-import ase.activityminder.serializables.Exercise;
-import ase.activityminder.adapters.ExerciseAdapter;
 import ase.activityminder.R;
+import ase.activityminder.adapters.ExerciseAdapter;
+import ase.activityminder.serializables.Exercise;
 import ase.activityminder.serializables.Workout;
 
 public class EditWorkout extends ActionBarActivity {
 
+    public final static int REQ_CODE_EXERCISE = 666;
+    public final static int REQ_CODE = 301;
+    public final static int RES_CODE = 103;
     Workout currentWorkout;
     EditText workoutTitle;
     int position;
     ListView lv;
     ExerciseAdapter exerciseAdpt;
-    public final static int REQ_CODE_EXERCISE = 666;
     ArrayList<Integer> deletePositions = new ArrayList();
-
-
-    public final static int REQ_CODE = 301;
-    public final static int RES_CODE = 103;
     FloatingActionButton floatingNewButton;
 
     @Override
@@ -65,7 +60,7 @@ public class EditWorkout extends ActionBarActivity {
         workoutTitle = (EditText) findViewById(R.id.editText);
         workoutTitle.setText(currentWorkout.getTitle());
         lv = (ListView) findViewById(R.id.listView);
-        exerciseAdpt = new ExerciseAdapter(currentWorkout.getExercises(), getApplicationContext(),deletePositions,this);
+        exerciseAdpt = new ExerciseAdapter(currentWorkout.getExercises(), getApplicationContext(), deletePositions, this);
         lv.setAdapter(exerciseAdpt);
 
         // Floating plus button
@@ -80,7 +75,6 @@ public class EditWorkout extends ActionBarActivity {
                 createNewExercise(v);
             }
         });
-
 
 
     }
@@ -140,19 +134,16 @@ public class EditWorkout extends ActionBarActivity {
             currentWorkout.getExercises().add(newExercise);
 
             exerciseAdpt.notifyDataSetChanged();
-        }
-        else if(requestCode == EditExercise.EXERCISE_CODE && resultCode == RESULT_OK)
-        {
+        } else if (requestCode == EditExercise.EXERCISE_CODE && resultCode == RESULT_OK) {
             Exercise editedExercise = (Exercise) data.getExtras().get("EDITED_EXERCISE");
-            int position = data.getIntExtra("CLICKED_POSITION",0);
-            currentWorkout.getExercises().set(position,editedExercise);
+            int position = data.getIntExtra("CLICKED_POSITION", 0);
+            currentWorkout.getExercises().set(position, editedExercise);
         }
     }
 
-    public void removeExercises()
-    {
+    public void removeExercises() {
         exerciseAdpt.getDeletePositions();
-        for(int i = 0;i<deletePositions.size();i++) {
+        for (int i = 0; i < deletePositions.size(); i++) {
             int index = deletePositions.get(i);
             currentWorkout.getExercises().remove(index);
             exerciseAdpt.notifyDataSetChanged();

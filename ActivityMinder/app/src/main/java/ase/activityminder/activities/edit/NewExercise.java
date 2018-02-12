@@ -9,21 +9,20 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Switch;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.text.WordUtils;
 
-import ase.activityminder.activities.QueryDatabaseActivity;
-import ase.activityminder.serializables.Exercise;
 import ase.activityminder.R;
+import ase.activityminder.activities.QueryDatabaseActivity;
 import ase.activityminder.fragments.Duration;
 import ase.activityminder.fragments.Repetition;
+import ase.activityminder.serializables.Exercise;
 
 public class NewExercise extends ActionBarActivity implements Repetition.ToolbarListener, Duration.ToolbarListener {
-//    EditText typeText;
+    //    EditText typeText;
     Exercise exercise;
     Switch mySwitch;
     FragmentManager fm;
@@ -65,11 +64,9 @@ public class NewExercise extends ActionBarActivity implements Repetition.Toolbar
         //set the switch to ON
         mySwitch.setChecked(true);
         //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
                     Log.v("Switch", "is checked");
@@ -132,7 +129,7 @@ public class NewExercise extends ActionBarActivity implements Repetition.Toolbar
         nameText = WordUtils.capitalize(nameText);
 
         if (nameText.isEmpty()) {
-            Toast toast = Toast.makeText(getApplicationContext(),"Please enter a valid title", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid title", Toast.LENGTH_SHORT);
             toast.show();
             return;
         } else {
@@ -155,7 +152,7 @@ public class NewExercise extends ActionBarActivity implements Repetition.Toolbar
         nameText = WordUtils.capitalize(nameText); // capitalize first letter of every word
 
         if (nameText.isEmpty()) {
-            Toast toast = Toast.makeText(getApplicationContext(),"Please enter a valid title", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid title", Toast.LENGTH_SHORT);
             toast.show();
             return;
         } else {

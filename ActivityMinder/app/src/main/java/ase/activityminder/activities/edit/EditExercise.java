@@ -11,23 +11,19 @@ import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import ase.activityminder.serializables.Exercise;
 import ase.activityminder.R;
 import ase.activityminder.fragments.Duration;
 import ase.activityminder.fragments.Repetition;
+import ase.activityminder.serializables.Exercise;
 
-public class EditExercise extends ActionBarActivity implements Repetition.ToolbarListener, Duration.ToolbarListener
-{
+public class EditExercise extends ActionBarActivity implements Repetition.ToolbarListener, Duration.ToolbarListener {
+    public static final int EXERCISE_CODE = 42;
+    public static int exerciseReps, exerciseTimePerRep, exerciseDuration;
     EditText typeText;
     Exercise exercise;
     Switch mySwitch;
     FragmentManager fm;
     int position;
-    public static final int EXERCISE_CODE = 42;
-
-    public static int exerciseReps, exerciseTimePerRep, exerciseDuration;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,23 +56,21 @@ public class EditExercise extends ActionBarActivity implements Repetition.Toolba
         mySwitch = (Switch) findViewById(R.id.switch1);
         fm = getFragmentManager();
 
-        if(exercise.getDuration() > 0) {
+        if (exercise.getDuration() > 0) {
             FragmentTransaction ft = fm.beginTransaction();
             Duration dFragment = new Duration();
             ft.add(R.id.listcontainer, dFragment, "duration");
             ft.commit();
             /*fm.executePendingTransactions();
             dFragment.changeText(exercise.getDuration());*/
-        }else
-        {
+        } else {
             FragmentTransaction ft = fm.beginTransaction();
             Repetition rFragment = new Repetition();
-            ft.add(R.id.listcontainer, rFragment,"repetition");
-            Log.v("where?","made it past ft.add");
+            ft.add(R.id.listcontainer, rFragment, "repetition");
+            Log.v("where?", "made it past ft.add");
             //Repetition rFragment = (Repetition) fm.findFragmentByTag("repetition");
-            if(rFragment == null)
-            {
-                Log.v("OMGFragment","null");
+            if (rFragment == null) {
+                Log.v("OMGFragment", "null");
             }
             ft.commit();
             /*fm.executePendingTransactions();
@@ -85,10 +79,8 @@ public class EditExercise extends ActionBarActivity implements Repetition.Toolba
         //set the switch to ON
         mySwitch.setChecked(true);
         //attach a listener to check for changes in state
-        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-            {
+        mySwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
                 if (isChecked) {
                     Log.v("Switch", "is checked");
@@ -108,24 +100,21 @@ public class EditExercise extends ActionBarActivity implements Repetition.Toolba
     }
 
 
-
     private void sendBackToNewWorkout() {
 //        int resultCode = 666;
         Intent resultIntent = new Intent(/*null*/);
         resultIntent.putExtra("EDITED_EXERCISE", exercise);
-        resultIntent.putExtra("CLICKED_POSITION",position);
+        resultIntent.putExtra("CLICKED_POSITION", position);
         setResult(RESULT_OK, resultIntent);
         finish();
     }
 
     @Override
     public void setRepetition(int numRep, int numTime) {
-        if(typeText.getText().toString() != "" && !typeText.getText().toString().isEmpty())
-        {
+        if (typeText.getText().toString() != "" && !typeText.getText().toString().isEmpty()) {
             exercise.setName(typeText.getText().toString());
-        }else
-        {
-            Toast toast = Toast.makeText(getApplicationContext(),"Please enter a valid title", Toast.LENGTH_SHORT);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid title", Toast.LENGTH_SHORT);
             toast.show();
         }
         Log.v("FragmentTest", exercise.getName());
@@ -139,10 +128,10 @@ public class EditExercise extends ActionBarActivity implements Repetition.Toolba
 
     @Override
     public void setDuration(int num) {
-        if(typeText.getText().toString() != "" && !typeText.getText().toString().isEmpty()) {
+        if (typeText.getText().toString() != "" && !typeText.getText().toString().isEmpty()) {
             exercise.setName(typeText.getText().toString());
         } else {
-            Toast toast = Toast.makeText(getApplicationContext(),"Please enter a valid title", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter a valid title", Toast.LENGTH_SHORT);
             toast.show();
         }
         Log.v("FragmentTest", exercise.getName());

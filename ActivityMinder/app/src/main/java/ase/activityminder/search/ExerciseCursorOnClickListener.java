@@ -15,7 +15,7 @@ import ase.activityminder.activities.ExerciseDetailsActivity;
 public class ExerciseCursorOnClickListener implements AdapterView.OnItemClickListener {
     Context activityContext;
 
-    public ExerciseCursorOnClickListener (Context ctx) {
+    public ExerciseCursorOnClickListener(Context ctx) {
         activityContext = ctx;
     }
 

@@ -4,10 +4,9 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Handler;
+import android.os.Bundle;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,16 +33,13 @@ import ase.activityminder.serializables.Workout;
 
 
 public class WorkoutList extends Fragment {
+    public static WorkoutAdapter workoutAdapter;
+    public static boolean isActive = false; // USED
     ListView listView;
     Button deleteWorkoutButton;
-    public static WorkoutAdapter workoutAdapter;
-    private android.support.v4.widget.SwipeRefreshLayout swipeRefresh;
-
-    public static boolean isActive = false; // USED
-
     TextToSpeech tts;
-
     Vibrator vibrator;
+    private android.support.v4.widget.SwipeRefreshLayout swipeRefresh;
 
     //TODO: Swipe refresh layout to download
 
@@ -73,7 +69,7 @@ public class WorkoutList extends Fragment {
         // We get the ListView component from the layout
         listView = (ListView) view.findViewById(R.id.listView);
         deleteWorkoutButton = (Button) view.findViewById(R.id.delete_workout_button);
-        workoutAdapter = new WorkoutAdapter(((MainActivity)getActivity()).workouts, getActivity(), MainActivity.getDeletePositions(), getActivity());
+        workoutAdapter = new WorkoutAdapter(((MainActivity) getActivity()).workouts, getActivity(), MainActivity.getDeletePositions(), getActivity());
 
         // This is a simple adapter that accepts as parameter
         // Context, Data list, The row layout that is used during the row creation, The keys used to retrieve the data, The View id used to show the data. The key number and the view id must match
@@ -155,10 +151,47 @@ public class WorkoutList extends Fragment {
 
     public void downloadFromNetwork() { // was originally in mainactivity
         WorkoutList workoutListFrag = (WorkoutList) getFragmentManager().findFragmentById(R.id.content_frame);
-        if (((MainActivity)getActivity()).isConnectedToNetwork()) {
+        if (((MainActivity) getActivity()).isConnectedToNetwork()) {
             // upload to network
             workoutListFrag.downloadWorkouts();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        isActive = false;
+        tts.shutdown();
+    }
+
+    public void newWorkout(View v) { // you clicked the floating plus button
+        vibrator.vibrate(30);
+        Intent intent = new Intent(getActivity(), NewWorkout.class);
+        getActivity().startActivityForResult(intent, MainActivity.REQUEST_CODE);
+    }
+
+    public void notifyChanged() {
+        try {
+            workoutAdapter.notifyDataSetChanged();
+            //whatever
+            listView.setAdapter(new WorkoutAdapter(((MainActivity) getActivity()).workouts, getActivity(), MainActivity.getDeletePositions(), getActivity()));
+        } catch (Exception e) {
+            Log.e("e", e.toString());
+        }
+    }
+
+    public void removeWorkouts() {
+        MainActivity.setDeletePositions(workoutAdapter.getDeletePositions());
+        Collections.sort(MainActivity.getDeletePositions());
+        Collections.reverse(MainActivity.getDeletePositions());
+        for (int i = 0; i < MainActivity.getDeletePositions().size(); i++) {
+            int index = MainActivity.getDeletePositions().get(i);
+            ((MainActivity) getActivity()).workouts.remove(index);
+            workoutAdapter.notifyDataSetChanged();
+        }
+        MainActivity.getDeletePositions().clear();
+        ((MainActivity) getActivity()).saveWorkoutsFile();
+        ((MainActivity) getActivity()).readWorkoutsFile();
     }
 
     /*
@@ -191,9 +224,9 @@ public class WorkoutList extends Fragment {
                 // set arraylist to this downloaded one
                 ((MainActivity) getActivity()).workouts = new ArrayList<Workout>(workoutArrayList);
 
-                for (int i = 0; i < ((MainActivity)getActivity()).workouts.size(); i++) {
-                    Log.e("append", "appending " +((MainActivity)getActivity()).workouts.get(i).getTitle());
-                    sb.append(((MainActivity)getActivity()).workouts.get(i).getTitle()).append("\n");
+                for (int i = 0; i < ((MainActivity) getActivity()).workouts.size(); i++) {
+                    Log.e("append", "appending " + ((MainActivity) getActivity()).workouts.get(i).getTitle());
+                    sb.append(((MainActivity) getActivity()).workouts.get(i).getTitle()).append("\n");
                 }
 
                 Toast.makeText(getActivity(), "Successfully synced routines", Toast.LENGTH_SHORT).show();
@@ -216,8 +249,8 @@ public class WorkoutList extends Fragment {
         Uploads workout to server, and that's it
      */
     public class UploadWorkoutsAsync extends AsyncTask<Void, Void, Void> {
-        String user;
         final ArrayList<Workout> workoutArrayList = ((MainActivity) getActivity()).workouts; // upload this activity's workout
+        String user;
         boolean success = false;
 
         @Override
@@ -239,52 +272,6 @@ public class WorkoutList extends Fragment {
 //            Toast.makeText(getActivity(), "Success: " + String.valueOf(success), Toast.LENGTH_SHORT).show();
         }
     }
-
-
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        isActive = false;
-        tts.shutdown();
-    }
-
-    public void newWorkout(View v) { // you clicked the floating plus button
-        vibrator.vibrate(30);
-        Intent intent = new Intent(getActivity(), NewWorkout.class);
-        getActivity().startActivityForResult(intent, MainActivity.REQUEST_CODE);
-    }
-
-    public void notifyChanged() {
-        try {
-            workoutAdapter.notifyDataSetChanged();
-            //whatever
-            listView.setAdapter(new WorkoutAdapter(((MainActivity) getActivity()).workouts, getActivity(), MainActivity.getDeletePositions(), getActivity()));
-        }catch (Exception e) {
-            Log.e("e", e.toString());
-        }
-    }
-
-    public void removeWorkouts() {
-        MainActivity.setDeletePositions(workoutAdapter.getDeletePositions());
-        Collections.sort(MainActivity.getDeletePositions());
-        Collections.reverse(MainActivity.getDeletePositions());
-        for(int i = 0; i < MainActivity.getDeletePositions().size(); i++) {
-            int index = MainActivity.getDeletePositions().get(i);
-            ((MainActivity) getActivity()).workouts.remove(index);
-            workoutAdapter.notifyDataSetChanged();
-        }
-        MainActivity.getDeletePositions().clear();
-        ((MainActivity)getActivity()).saveWorkoutsFile();
-        ((MainActivity)getActivity()).readWorkoutsFile();
-    }
-
-
-
-
-
-
-
-
 
 
 }
